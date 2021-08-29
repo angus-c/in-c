@@ -11,7 +11,7 @@ const options = {
       decay: 1.4,
       release: 0.4,
     },
-    volume: 10,
+    volume: 0,
   },
   PolySynth: {
     envelope: {
@@ -62,18 +62,20 @@ const options = {
 
 class Player {
   constructor(instrument, baseVolume, attack, attackTime) {
-    this.baseVolume = baseVolume;
     this.attack = attack;
     this.attackTime = attackTime;
     this.voice = new Tone[instrument](options[instrument]).toDestination();
+    this.voice.defaultVolume = this.voice._volume._unmutedVolume;
     // this.voice = new Tone[instrument]().connect(ampEnv);
   }
 
-  play(pitch, duration, volumeOverride) {
-    let volume = volumeOverride || this.baseVolume;
+  play(pitch, duration, volumeOverride = 0) {
     let formattedDuration = `${1 / duration}n`;
     let [note, octave] = pitch;
     let formattedPitch = note == note.toUpperCase() ? `${note}#` : note;
+    // console.dir(this.voice._volume._unmutedVolume);
+    // this.voice._volume._unmutedVolume =
+    //   this.voice.defaultVolume + volumeOverride;
     this.voice.triggerAttackRelease(
       `${formattedPitch}${octave}`,
       formattedDuration
@@ -85,4 +87,13 @@ class Player {
   }
 }
 
-export { Player, init };
+let instruments = [
+  "PluckSynth",
+  "MonoSynth",
+  "PolySynth",
+  "FMSynth",
+  "MembraneSynth",
+  "AMSynth",
+];
+
+export { Player, instruments, init };

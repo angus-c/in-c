@@ -1,12 +1,14 @@
-import { Player, init } from "./voice-tone.js";
+import { Player, instruments, init } from "./voice-tone.js";
 // import pitches from "./pitches";
 import { getPhrasesAsQueues as getPhrases } from "./phrases.js";
+import { initViz, updateViz } from "./viz.js";
 
-let numberOfParts = 10;
-let bpm = 120;
+let numberOfParts = 6;
+let bpm = 20;
 let baseBeat = 1 / 8;
 let advanceIndex = 2;
 let maxPhraseRange = 5;
+let downbeatEmphasis = 30;
 
 let phrases = getPhrases(baseBeat);
 let numberOfPhrases = phrases.length;
@@ -14,15 +16,6 @@ let beatInterval = (60 * 1000 * baseBeat) / bpm;
 let baseVolume = 0.1;
 
 let phraseMap = [];
-
-let instruments = [
-  "PluckSynth",
-  "PolySynth",
-  "FMSynth",
-  "MembraneSynth",
-  "AMSynth",
-  "MonoSynth",
-];
 
 let parts = [];
 for (let p = 0; p < numberOfParts; p++) {
@@ -40,6 +33,8 @@ for (let p = 0; p < numberOfParts; p++) {
     player: new Player(instruments[p % instruments.length]),
   });
 }
+
+initViz(parts.length);
 
 let minPhrase = Math.min(...phraseMap);
 
@@ -68,8 +63,6 @@ async function play() {
         minPhrase = Math.min(...phraseMap);
         console.log(phraseMap);
         if (part.phraseNumber > numberOfPhrases - 1) {
-          // player.rest();
-          // setTimeout(() => voice.rest(), 200); // back up
           parts.splice(i, 1);
           if (parts.length <= 1) {
             end(int);
@@ -82,7 +75,8 @@ async function play() {
     if (note == "--") {
       // voice.rest();
     } else if (note != "  ") {
-      player.play(note, duration);
+      player.play(note, duration /*, part.beat === 0 ? downbeatEmphasis : 0*/);
+      updateViz(i, note);
     }
     return [note, phraseNumber];
   }

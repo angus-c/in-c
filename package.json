@@ -1,0 +1,29 @@
+{
+  "name": "in-c",
+  "version": "0.1.0",
+  "description": "WIP - See https://en.wikipedia.org/wiki/In_C",
+  "main": "index.js",
+  "type": "module",  
+  "keywords": [
+    "web-audio-api",
+    "web",
+    "audio",
+    "terry",
+    "riley"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angus-c/in-c.git"
+  },
+  "author": "Angus Croll",
+  "license": "MIT",
+  "dependencies": {
+    "speaker": "^0.3.0",
+    "tone": "^14.7.77",
+    "web-audio-engine": "^0.9.2"
+  },
+  "scripts": {
+    "play": "node index"
+  },
+  "devDependencies": {}
+}

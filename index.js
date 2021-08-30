@@ -91,14 +91,18 @@ function end(int) {
   // process.exit(0);
 }
 
-document.addEventListener("mousedown", async () => {
-  let ac = new AudioContext();
-  await ac.resume();
+document.addEventListener("mousedown", ready);
+document.addEventListener("touchend", ready);
+
+async function ready() {
+  // let ac = new AudioContext();
+  // await ac.resume();
   await init();
+  alert("***");
   try {
     await play();
   } catch (e) {
     console.log("ERROR:", e);
   }
   console.log("done");
-});
+}

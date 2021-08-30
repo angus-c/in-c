@@ -6,19 +6,19 @@ async function init() {
 const options = {
   PluckSynth: {
     envelope: {
-      attack: 0.1,
+      attack: 0,
       susatin: 0.1,
       decay: 1.4,
-      release: 0.4,
+      release: 0.1,
     },
     volume: 0,
   },
   PolySynth: {
     envelope: {
-      attack: 0.1,
+      attack: 0.2,
       susatin: 0.1,
       decay: 1.4,
-      release: 0.4,
+      release: 0.1,
     },
     volume: 0,
   },
@@ -27,7 +27,7 @@ const options = {
       attack: 0.1,
       susatin: 0.1,
       decay: 1.4,
-      release: 0.4,
+      release: 0.1,
     },
     volume: -10,
   },
@@ -36,25 +36,25 @@ const options = {
       attack: 0.1,
       susatin: 0.1,
       decay: 1.4,
-      release: 0.4,
+      release: 0.1,
     },
     volume: -10,
   },
   AMSynth: {
     envelope: {
-      attack: 0.1,
+      attack: 0.3,
       susatin: 0.1,
       decay: 1.4,
-      release: 0.4,
+      release: 0.1,
     },
     volume: -10,
   },
   MonoSynth: {
     envelope: {
-      attack: 0.1,
+      attack: 0.2,
       susatin: 0.1,
       decay: 1.4,
-      release: 0.4,
+      release: 0.1,
     },
     volume: -10,
   },

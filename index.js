@@ -3,8 +3,8 @@ import { Player, instruments, init } from "./voice-tone.js";
 import { getPhrasesAsQueues as getPhrases } from "./phrases.js";
 import { initViz, updateViz } from "./viz.js";
 
-let numberOfParts = 6;
-let bpm = 20;
+let numberOfParts = 3;
+let bpm = 60;
 let baseBeat = 1 / 8;
 let advanceIndex = 2;
 let maxPhraseRange = 5;
@@ -76,7 +76,7 @@ async function play() {
       // voice.rest();
     } else if (note != "  ") {
       player.play(note, duration /*, part.beat === 0 ? downbeatEmphasis : 0*/);
-      updateViz(i, note);
+      updateViz(i, note, parseFloat(duration, 10));
     }
     return [note, phraseNumber];
   }

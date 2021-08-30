@@ -3,49 +3,99 @@ let ctx = canvas.getContext("2d");
 
 let width = canvas.width;
 let height = canvas.height;
-let restColor = "200,200,200";
+let restColor = "240,240,240";
+let sustain = 600;
 
-let partY = height / 2;
-let partSeparation;
+let hSeparation;
+let vSeparation;
+
 let radius;
 
-// https://music.stackexchange.com/questions/6320/is-there-a-color-code-for-notes
 let colorMap = {
-  a2: "255,99,0",
-  "a#2": "255,36,0",
-  b2: "153,255,0",
-  c3: "40,255,0",
-  "c#3": "0,255,232",
-  d3: "0,124,255",
-  "d#3": "5,0,255",
-  e3: "69,0,234",
-  f3: "87,0,158",
-  "f#3": "85,0,79",
-  g3: "179,0,0",
-  "g#3": "238,0,0",
-  a3: "255,99,0",
-  "a#3": "255,36,0",
-  b3: "153,255,0",
-  c4: "40,255,0",
-  "c#4": "0,255,232",
+  a3: "30,38,132",
+  "a#3": "19,86,169",
+  b3: "18,147,169",
+  c3: "20,153,83",
+  "c#3": "151,200,63",
+  d3: "254,243,10",
+  "d#3": "250,160,22",
+  e3: "241,109,25",
+  f3: "235,65,27",
+  "f#3": "229,0,29",
+  g3: "172,0,93",
+  "g#3": "78,26,126",
+  a4: "30,38,132",
+  "a#4": "19,86,169",
+  b4: "18,147,169",
+  c4: "20,153,83",
+  "c#4": "151,200,63",
+  d4: "254,243,10",
+  "d#4": "250,160,22",
+  e4: "241,109,25",
+  f4: "235,65,27",
+  "f#4": "229,0,29",
+  g4: "172,0,93",
+  "g#4": "78,26,126",
+};
+
+let rowMap = {
+  a3: 3,
+  "a#3": 2,
+  b3: 1,
+  c3: 0,
+  "c#3": 11,
+  d3: 10,
+  "d#3": 9,
+  e3: 8,
+  f3: 7,
+  "f#3": 6,
+  g3: 5,
+  "g#3": 4,
+  a4: 3,
+  "a#4": 2,
+  b4: 1,
+  c4: 0,
+  "c#4": 11,
+  d4: 10,
+  "d#4": 9,
+  e4: 8,
+  f4: 7,
+  "f#4": 6,
+  g4: 5,
+  "g#4": 4,
 };
 
 function initViz(parts) {
-  partSeparation = width / (parts + 1);
-  radius = Math.min(height / 2, partSeparation / 2);
-  for (let p = 0; p < parts; p++) {
-    drawCircle((p + 0.5) * partSeparation, partY, restColor);
+  hSeparation = width / (parts + 1);
+  vSeparation = height / 12;
+  radius = Math.min(vSeparation / 4, hSeparation / 4);
+  for (let v = 0; v < 12; v++) {
+    for (let p = 0; p < parts; p++) {
+      drawCircle((p + 0.5) * hSeparation, (v + 0.5) * vSeparation, restColor);
+    }
   }
 }
 
-function updateViz(part, note) {
-  drawCircle((part + 0.5) * partSeparation, partY, colorMap[note]);
-  setTimeout(() => clear(part), 200);
+function updateViz(part, note, duration) {
+  let x = (part + 0.5) * hSeparation;
+  let y = (rowMap[note] + 0.5) * vSeparation;
+  clear(part, x, y);
+  new Promise((r) => setTimeout(() => r(), 100)).then(() => {
+    drawCircle(x, y, colorMap[note]);
+    new Promise((r) => setTimeout(() => r(), sustain * duration)).then(() =>
+      clear(part, x, y)
+    );
+  });
 }
 
-function clear(part) {
-  ctx.clearRect(partSeparation * part, 0, partSeparation, height);
-  drawCircle((part + 0.5) * partSeparation, partY, restColor);
+function clear(part, x, y) {
+  ctx.clearRect(
+    x - 0.5 * hSeparation,
+    y - 0.5 * vSeparation,
+    hSeparation,
+    vSeparation
+  );
+  // drawCircle(x, y, restColor);
 }
 
 function drawCircle(x, y, color) {

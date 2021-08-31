@@ -6,6 +6,8 @@ let height = canvas.height;
 let restColor = "240,240,240";
 let sustain = 600;
 
+console.log(width, height);
+
 let hSeparation;
 let vSeparation;
 

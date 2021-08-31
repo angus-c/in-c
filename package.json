@@ -5,11 +5,10 @@
   "main": "index.js",
   "type": "module",  
   "keywords": [
-    "web-audio-api",
     "web",
     "audio",
-    "terry",
-    "riley"
+    "music",
+    "tonejs"    
   ],
   "repository": {
     "type": "git",
@@ -17,11 +16,6 @@
   },
   "author": "Angus Croll",
   "license": "MIT",
-  "dependencies": {
-    "speaker": "^0.3.0",
-    "tone": "^14.7.77",
-    "web-audio-engine": "^0.9.2"
-  },
   "scripts": {
     "play": "node index"
   },

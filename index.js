@@ -3,7 +3,7 @@ import instruments from "./instruments.js";
 import { getPhrasesAsQueues as getPhrases } from "./phrases.js";
 import { initViz, updateViz } from "./viz.js";
 
-let numberOfParts = 6;
+let numberOfParts = 18;
 let bpm = 80;
 let baseBeat = 1 / 8;
 let advanceIndex = 2;
@@ -91,8 +91,9 @@ function end(loop) {
   window.clearInterval(loop);
 }
 
-document.addEventListener("mousedown", ready);
-document.addEventListener("touchend", ready);
+let button = document.querySelector("#play-button");
+button.addEventListener("mousedown", ready);
+button.addEventListener("touchend", ready);
 
 async function ready() {
   await init();

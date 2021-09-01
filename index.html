@@ -8,10 +8,15 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <canvas id='viz' width="600" height="600"></canvas>    
-    <!-- <div class='container'> -->
-      <!-- <img class='right' src='./images/inC.png'></img> -->
-    <!-- </div> -->
+    <div class='front-page'>
+      <div class='header-controls'>
+        <button id="play-button" class="play-button">Play ></button>
+      </div>
+      <div class='viz-score-container'>
+        <canvas id='viz' width="600" height="600"></canvas>          
+        <img class='score' src='./images/inC.png'></img>
+      </div>
+    </div>
     <script src="https://unpkg.com/tone@14.7.77/build/Tone.js"></script>
 	  <script type="module" src="index.js"></script>
   </body>
